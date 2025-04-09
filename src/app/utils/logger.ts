@@ -1,10 +1,14 @@
-import winston from 'winston';
+/* eslint-disable no-console */
+import chalk from 'chalk';
 
-const logger = winston.createLogger({
-  levels: winston.config.syslog.levels,
-  level: process.env.LOG_LEVEL || 'info',
-  format: winston.format.cli(),
-  transports: [new winston.transports.Console()],
-});
-
-export default logger;
+export const logger = {
+  info: (message: string, ...args: unknown[]) => {
+    console.log(chalk.green(message), ...args);
+  },
+  warn: (message: string, ...args: unknown[]) => {
+    console.log(chalk.yellow(message), ...args);
+  },
+  error: (message: string, ...args: unknown[]) => {
+    console.log(chalk.red(message), ...args);
+  },
+};
