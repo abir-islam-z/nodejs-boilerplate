@@ -1,59 +1,59 @@
 import catchAsync from '@app/utils/catchAsync';
 import { sendResponse } from '@app/utils/sendResponse';
 import httpStatus from 'http-status';
-import { UserService } from './user.service';
+import { OrderService } from './order.service';
 
 const create = catchAsync(async (req, res) => {
-  const user = await UserService.createUser(req.body);
+  const result = await OrderService.create(req.body);
   sendResponse(res, {
     success: true,
-    message: 'User created successfully',
+    message: 'Order created successfully',
     statusCode: httpStatus.CREATED,
-    data: user,
+    data: result,
   });
 });
 
 const findAll = catchAsync(async (_req, res) => {
-  const users = await UserService.getAllUsers();
+  const result = await OrderService.findAll();
   sendResponse(res, {
     success: true,
-    message: 'Users retrieved successfully',
+    message: 'Orders retrieved successfully',
     statusCode: httpStatus.OK,
-    data: users,
+    data: result,
   });
 });
 
 const findOne = catchAsync(async (req, res) => {
-  const user = await UserService.getUserById(req.params.id);
+  const result = await OrderService.findOne(req.params.id);
   sendResponse(res, {
     success: true,
-    message: 'User retrieved successfully',
+    message: 'Order retrieved successfully',
     statusCode: httpStatus.OK,
-    data: user,
+    data: result,
   });
 });
 
 const update = catchAsync(async (req, res) => {
-  const user = await UserService.updateUser(req.params.id, req.body);
+  const result = await OrderService.update(req.params.id, req.body);
   sendResponse(res, {
     success: true,
-    message: 'User updated successfully',
+    message: 'Order updated successfully',
     statusCode: httpStatus.OK,
-    data: user,
+    data: result,
   });
 });
 
 const remove = catchAsync(async (req, res) => {
-  await UserService.deleteUser(req.params.id);
+  const result = await OrderService.remove(req.params.id);
   sendResponse(res, {
     success: true,
-    message: 'User deleted successfully',
+    message: 'Order deleted successfully',
     statusCode: httpStatus.NO_CONTENT,
-    data: null,
+    data: result,
   });
 });
 
-export const UserController = {
+export const OrderController = {
   create,
   findAll,
   findOne,

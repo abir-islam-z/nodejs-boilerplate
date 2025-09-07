@@ -1,7 +1,8 @@
+import { AdminRoutes } from '@modules/admin/admin.route';
+import { AuthRoutes } from '@modules/auth/auth.route';
+import { MailRoutes } from '@modules/mail/mail.route';
+import { OrderRoutes } from '@modules/order/order.route';
 import { Router } from 'express';
-import { AdminRoutes } from '../modules/admin/admin.route';
-import { AuthRoutes } from '../modules/auth/auth.route';
-import { UserRoutes } from '../modules/user/user.route';
 
 const router = Router();
 
@@ -11,13 +12,14 @@ const moduleRoutes = [
     route: AuthRoutes,
   },
   {
-    path: '/user',
-    route: UserRoutes,
-  },
-  {
     path: '/admin',
     route: AdminRoutes,
   },
+  {
+    path: '/mail',
+    route: MailRoutes,
+  },
+  { path: '/order', route: OrderRoutes },
 ];
 
 moduleRoutes.forEach(route => {

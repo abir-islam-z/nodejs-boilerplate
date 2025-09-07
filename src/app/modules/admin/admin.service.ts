@@ -1,5 +1,4 @@
-import { BlogModel } from '../blog/blog.model';
-import { UserModel } from '../user/user.model';
+import { UserModel } from '@modules/user/user.model';
 
 const blockUserFromDB = async (userId: string) => {
   await UserModel.findByIdAndUpdate(
@@ -9,11 +8,6 @@ const blockUserFromDB = async (userId: string) => {
   );
 };
 
-const deleteBlogFromDB = async (blogId: string) => {
-  await BlogModel.findByIdAndUpdate(blogId, { isPublished: false });
-};
-
 export const AdminService = {
   blockUserFromDB,
-  deleteBlogFromDB,
 };

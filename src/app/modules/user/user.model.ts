@@ -1,7 +1,7 @@
+import config from '@app/config';
 import bcrypt from 'bcrypt';
 import { model, Schema } from 'mongoose';
 import { isEmail } from 'validator';
-import config from '../../config';
 import { USER_ROLES } from './user.constant';
 import { TUser, TUserModel } from './user.interface';
 
@@ -28,11 +28,14 @@ const userSchema = new Schema<TUser, TUserModel>(
     role: {
       type: String,
       enum: USER_ROLES,
-      default: 'user',
     },
     isBlocked: {
       type: Boolean,
       default: false,
+    },
+    passwordChangedAt: {
+      type: Date,
+      default: null,
     },
   },
   {
@@ -42,6 +45,9 @@ const userSchema = new Schema<TUser, TUserModel>(
 
 userSchema.pre('save', async function (next) {
   const user = this;
+
+  // Only hash the password if it has been modified (or is new)
+  if (!user.isModified('password')) return next();
 
   user.password = await bcrypt.hash(
     user.password,
@@ -64,6 +70,15 @@ userSchema.statics.isPasswordMatched = async function (
   hashedPassword,
 ) {
   return await bcrypt.compare(plainTextPassword, hashedPassword);
+};
+
+userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
+  passwordChangedTimestamp: Date,
+  jwtIssuedTimestamp: number,
+) {
+  const passwordChangedTime =
+    new Date(passwordChangedTimestamp).getTime() / 1000;
+  return passwordChangedTime > jwtIssuedTimestamp;
 };
 
 export const UserModel = model<TUser, TUserModel>('User', userSchema);

@@ -17,7 +17,12 @@
     "sourceMap": true,
     "allowJs": true,
     "moduleResolution": "Node",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@modules/*": ["./src/app/modules/*"],
+      "@app/*": ["./src/app/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
