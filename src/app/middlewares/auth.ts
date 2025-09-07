@@ -1,12 +1,12 @@
+import config from '@app/config';
+import AppError from '@app/errors/AppError';
+import { DecodedJWTPayload } from '@app/interface/jwtdecoded';
+import catchAsync from '@app/utils/catchAsync';
+import { TUserRole } from '@modules/user/user.interface';
+import { UserModel } from '@modules/user/user.model';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import config from '../config';
-import AppError from '../errors/AppError';
-import { DecodedJWTPayload } from '../interface/jwtdecoded';
-import { TUserRole } from '../modules/user/user.interface';
-import { UserModel } from '../modules/user/user.model';
-import catchAsync from '../utils/catchAsync';
 
 const auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(

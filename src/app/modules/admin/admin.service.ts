@@ -1,4 +1,4 @@
-import { UserModel } from '../user/user.model';
+import { UserModel } from '@modules/user/user.model';
 
 const blockUserFromDB = async (userId: string) => {
   await UserModel.findByIdAndUpdate(

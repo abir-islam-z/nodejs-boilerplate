@@ -1,29 +1,56 @@
-import catchAsync from '../../utils/catchAsync';
+import catchAsync from '@app/utils/catchAsync';
+import { sendResponse } from '@app/utils/sendResponse';
+import httpStatus from 'http-status';
 import { UserService } from './user.service';
 
 const create = catchAsync(async (req, res) => {
   const user = await UserService.createUser(req.body);
-  res.status(201).json({ data: user });
+  sendResponse(res, {
+    success: true,
+    message: 'User created successfully',
+    statusCode: httpStatus.CREATED,
+    data: user,
+  });
 });
 
 const findAll = catchAsync(async (_req, res) => {
   const users = await UserService.getAllUsers();
-  res.status(200).json({ data: users });
+  sendResponse(res, {
+    success: true,
+    message: 'Users retrieved successfully',
+    statusCode: httpStatus.OK,
+    data: users,
+  });
 });
 
 const findOne = catchAsync(async (req, res) => {
   const user = await UserService.getUserById(req.params.id);
-  res.status(200).json({ data: user });
+  sendResponse(res, {
+    success: true,
+    message: 'User retrieved successfully',
+    statusCode: httpStatus.OK,
+    data: user,
+  });
 });
 
 const update = catchAsync(async (req, res) => {
   const user = await UserService.updateUser(req.params.id, req.body);
-  res.status(200).json({ data: user });
+  sendResponse(res, {
+    success: true,
+    message: 'User updated successfully',
+    statusCode: httpStatus.OK,
+    data: user,
+  });
 });
 
 const remove = catchAsync(async (req, res) => {
   await UserService.deleteUser(req.params.id);
-  res.status(204).json({ data: null });
+  sendResponse(res, {
+    success: true,
+    message: 'User deleted successfully',
+    statusCode: httpStatus.NO_CONTENT,
+    data: null,
+  });
 });
 
 export const UserController = {

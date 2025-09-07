@@ -1,8 +1,8 @@
+import config from '@app/config';
+import catchAsync from '@app/utils/catchAsync';
+import { sendResponse } from '@app/utils/sendResponse';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import config from '../../config';
-import catchAsync from '../../utils/catchAsync';
-import { sendResponse } from '../../utils/sendResponse';
 import { AuthService } from './auth.service';
 
 const registerUser = catchAsync(async (req: Request, res: Response) => {
@@ -69,9 +69,21 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const requestPasswordReset = catchAsync(async (req: Request, res: Response) => {
+  const { email } = req.body;
+  await AuthService.requestPasswordReset(email);
+
+  sendResponse(res, {
+    success: true,
+    message: 'Password reset email sent successfully',
+    statusCode: httpStatus.OK,
+  });
+});
+
 export const AuthController = {
   registerUser,
   loginUser,
   changePassword,
   refreshToken,
+  requestPasswordReset,
 };

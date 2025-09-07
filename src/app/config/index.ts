@@ -6,6 +6,7 @@ const config = {
   port: process.env.PORT || 1337,
   db_url: process.env.DB_URL || '',
   bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS,
+  frontend_url: process.env.FRONTEND_URL || 'http://localhost:3000',
   NODE_ENV: process.env.NODE_ENV,
   jwt: {
     access_secret: process.env.JWT_ACCESS_SECRET,
@@ -14,6 +15,15 @@ const config = {
     refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN,
   },
 
+  mail: {
+    provider: process.env.MAIL_PROVIDER || 'gmail',
+    host: process.env.MAIL_HOST,
+    port: process.env.MAIL_PORT,
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
+    from_name: process.env.MAIL_FROM_NAME || 'Your App',
+    from_email: process.env.MAIL_FROM_EMAIL,
+  },
   cloudinary: {
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,

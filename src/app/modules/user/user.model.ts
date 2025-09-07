@@ -1,7 +1,7 @@
+import config from '@app/config';
 import bcrypt from 'bcrypt';
 import { model, Schema } from 'mongoose';
 import { isEmail } from 'validator';
-import config from '../../config';
 import { USER_ROLES } from './user.constant';
 import { TUser, TUserModel } from './user.interface';
 
@@ -45,6 +45,9 @@ const userSchema = new Schema<TUser, TUserModel>(
 
 userSchema.pre('save', async function (next) {
   const user = this;
+
+  // Only hash the password if it has been modified (or is new)
+  if (!user.isModified('password')) return next();
 
   user.password = await bcrypt.hash(
     user.password,

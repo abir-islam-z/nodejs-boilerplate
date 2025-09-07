@@ -1,5 +1,6 @@
 import { AdminRoutes } from '@modules/admin/admin.route';
 import { AuthRoutes } from '@modules/auth/auth.route';
+import { MailRoutes } from '@modules/mail/mail.route';
 import { OrderRoutes } from '@modules/order/order.route';
 import { Router } from 'express';
 
@@ -13,6 +14,10 @@ const moduleRoutes = [
   {
     path: '/admin',
     route: AdminRoutes,
+  },
+  {
+    path: '/mail',
+    route: MailRoutes,
   },
   { path: '/order', route: OrderRoutes },
 ];
