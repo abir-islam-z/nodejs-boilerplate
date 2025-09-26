@@ -1,7 +1,6 @@
-import config from '@app/config';
 import bcrypt from 'bcrypt';
 import { model, Schema } from 'mongoose';
-import { isEmail } from 'validator';
+import config from '../../config';
 import { USER_ROLES } from './user.constant';
 import { TUser, TUserModel } from './user.interface';
 
@@ -15,7 +14,12 @@ const userSchema = new Schema<TUser, TUserModel>(
       type: String,
       required: [true, 'Please provide your email.'],
       validate: {
-        validator: (value: string) => isEmail(value),
+        validator: (value: string) => {
+          // Simple email validation using regex
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(value);
+        },
+        message: 'Please provide a valid email address',
       },
       unique: true,
       lowercase: true,
@@ -40,7 +44,7 @@ const userSchema = new Schema<TUser, TUserModel>(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 userSchema.pre('save', async function (next) {
@@ -51,7 +55,7 @@ userSchema.pre('save', async function (next) {
 
   user.password = await bcrypt.hash(
     user.password,
-    Number(config.bcrypt_salt_rounds),
+    Number(config.bcrypt_salt_rounds)
   );
 
   next();
@@ -67,14 +71,14 @@ userSchema.statics.isUserExistsByEmail = async function (email: string) {
 
 userSchema.statics.isPasswordMatched = async function (
   plainTextPassword,
-  hashedPassword,
+  hashedPassword
 ) {
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
 
 userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
   passwordChangedTimestamp: Date,
-  jwtIssuedTimestamp: number,
+  jwtIssuedTimestamp: number
 ) {
   const passwordChangedTime =
     new Date(passwordChangedTimestamp).getTime() / 1000;

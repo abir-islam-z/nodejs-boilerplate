@@ -1,12 +1,12 @@
-import config from '@app/config';
-import AppError from '@app/errors/AppError';
-import { DecodedJWTPayload } from '@app/interface/jwtdecoded';
-import catchAsync from '@app/utils/catchAsync';
-import { TUserRole } from '@modules/user/user.interface';
-import { UserModel } from '@modules/user/user.model';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import config from '../config';
+import AppError from '../errors/AppError';
+import { DecodedJWTPayload } from '../interface/jwtdecoded';
+import { TUserRole } from '../modules/user/user.interface';
+import { UserModel } from '../modules/user/user.model';
+import catchAsync from '../utils/catchAsync';
 
 const auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(
@@ -21,7 +21,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
       // checking if the given token is valid
       const decoded = jwt.verify(
         token,
-        config.jwt.access_secret as string,
+        config.jwt.access_secret as string
       ) as JwtPayload;
 
       const { role, userId } = decoded;
@@ -46,7 +46,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
 
       req.user = decoded as DecodedJWTPayload;
       next();
-    },
+    }
   );
 };
 

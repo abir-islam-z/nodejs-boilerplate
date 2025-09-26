@@ -1,4 +1,4 @@
-import { TRegisterUser } from '@modules/auth/auth.interface';
+import { TRegisterUser } from '../auth/auth.interface';
 import { TUser } from './user.interface';
 import { UserModel } from './user.model';
 
