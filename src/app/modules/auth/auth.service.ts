@@ -1,9 +1,7 @@
-import config from '@app/config';
-import AppError from '@app/errors/AppError';
-import { mailService } from '@app/services/mail.service';
-import { templateService } from '@app/services/template.service';
-import { UserModel } from '@modules/user/user.model';
 import httpStatus from 'http-status';
+import config from '../../config';
+import AppError from '../../errors/AppError';
+import { UserModel } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
 import { createToken, verifyToken } from './auth.utils';
 import { TRegister } from './auth.validation';
@@ -11,27 +9,15 @@ import { TRegister } from './auth.validation';
 const registerUser = async (payload: TRegister) => {
   const user = await UserModel.create(payload);
 
-  // Send welcome email
-  try {
-    const emailHtml = templateService.renderEmail('welcome', {
-      name: user.name,
-    });
-
-    await mailService.sendMail({
-      to: user.email,
-      subject: 'Welcome to Our App!',
-      html: emailHtml,
-    });
-  } catch (error) {
-    // Log error but don't fail registration
-    console.error('Failed to send welcome email:', error);
-  }
+  // Note: Email functionality removed for minimal setup
+  // You can add email service later if needed
+  console.log(`User registered successfully: ${user.email}`);
 
   return user;
 };
 
 const loginUser = async (
-  payload: TLoginUser,
+  payload: TLoginUser
 ): Promise<{
   accessToken: string;
   refreshToken: string;
@@ -47,13 +33,13 @@ const loginUser = async (
   if (isBlocked) {
     throw new AppError(
       httpStatus.FORBIDDEN,
-      'Your account has been deactivated.Please contact support !',
+      'Your account has been deactivated.Please contact support !'
     );
   }
 
   const isPasswordMatched = await UserModel.isPasswordMatched(
     payload.password,
-    user.password,
+    user.password
   );
 
   if (!isPasswordMatched) {
@@ -100,7 +86,7 @@ const changePassword = async (payload: {
 
   const isPasswordMatched = await UserModel.isPasswordMatched(
     payload.oldPassword,
-    user.password,
+    user.password
   );
 
   if (!isPasswordMatched) {
@@ -137,7 +123,7 @@ const refreshToken = async (token: string) => {
     user.passwordChangedAt &&
     UserModel.isJWTIssuedBeforePasswordChanged(
       user.passwordChangedAt,
-      iat as number,
+      iat as number
     )
   ) {
     throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized !');
@@ -175,24 +161,13 @@ const requestPasswordReset = async (email: string): Promise<void> => {
     expiresIn: '1h',
   });
 
-  try {
-    const emailHtml = templateService.renderEmail('password-reset', {
-      name: user.name,
-      resetUrl: `${config.frontend_url || 'http://localhost:3000'}/reset-password?token=${resetToken}`,
-    });
+  // Note: Email functionality removed for minimal setup
+  // You can add email service later if needed
+  console.log(`Password reset requested for: ${email}`);
+  console.log(`Reset token: ${resetToken}`);
 
-    await mailService.sendMail({
-      to: user.email,
-      subject: 'Password Reset Request',
-      html: emailHtml,
-    });
-  } catch (error) {
-    console.error('Failed to send password reset email:', error);
-    throw new AppError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      'Failed to send reset email',
-    );
-  }
+  // In a real app, you would send this token via email
+  // For now, just log it (remove this in production)
 };
 
 export const AuthService = {

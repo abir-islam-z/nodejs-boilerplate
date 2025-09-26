@@ -1,12 +1,12 @@
-import catchAsync from '@app/utils/catchAsync';
 import { NextFunction, Request, Response } from 'express';
 import { AnyZodObject } from 'zod';
+import catchAsync from '../utils/catchAsync';
 
 type ValidatePart = 'body' | 'query' | 'cookies' | 'params';
 
 const validateRequest = (
   schema: AnyZodObject,
-  validatePart: ValidatePart[] = ['body'],
+  validatePart: ValidatePart[] = ['body']
 ) => {
   return catchAsync(
     async (req: Request, _res: Response, next: NextFunction) => {
@@ -21,7 +21,7 @@ const validateRequest = (
       }
 
       next();
-    },
+    }
   );
 };
 

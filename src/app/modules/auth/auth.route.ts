@@ -1,6 +1,6 @@
-import validateRequest from '@app/middlewares/validateRequest';
 import { Router } from 'express';
 import { z } from 'zod';
+import validateRequest from '../../middlewares/validateRequest';
 import { AuthController } from './auth.controller';
 import { AuthValidation } from './auth.validation';
 
@@ -9,12 +9,12 @@ const router = Router();
 router.post(
   '/register',
   validateRequest(AuthValidation.registerValidationSchema),
-  AuthController.registerUser,
+  AuthController.registerUser
 );
 router.post(
   '/login',
   validateRequest(AuthValidation.loginValidationSchema),
-  AuthController.loginUser,
+  AuthController.loginUser
 );
 
 // Password reset request
@@ -25,7 +25,7 @@ const passwordResetSchema = z.object({
 router.post(
   '/forgot-password',
   validateRequest(passwordResetSchema),
-  AuthController.requestPasswordReset,
+  AuthController.requestPasswordReset
 );
 
 export const AuthRoutes = router;

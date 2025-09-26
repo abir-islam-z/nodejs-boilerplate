@@ -14,28 +14,6 @@ const config = {
     refresh_secret: process.env.JWT_REFRESH_SECRET,
     refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN,
   },
-
-  mail: {
-    provider: process.env.MAIL_PROVIDER || 'gmail',
-    host: process.env.MAIL_HOST,
-    port: process.env.MAIL_PORT,
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-    from_name: process.env.MAIL_FROM_NAME || 'Your App',
-    from_email: process.env.MAIL_FROM_EMAIL,
-  },
-  cloudinary: {
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-  },
-  sp: {
-    endpoint: process.env.SP_ENDPOINT,
-    username: process.env.SP_USERNAME,
-    password: process.env.SP_PASSWORD,
-    prefix: process.env.SP_PREFIX,
-    return_url: process.env.SP_RETURN_URL,
-  },
 };
 
 export default config;

@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
-import config from '@app/config';
-import AppError from '@app/errors/AppError';
-import handleAuthenticationError from '@app/errors/handleAuthenticationError';
-import handleCastError from '@app/errors/handleCastError';
-import handleDuplicateError from '@app/errors/handleDupliCateError';
-import handleValidationError from '@app/errors/handleValidationError';
-import handleZodError from '@app/errors/handleZodError';
-import { TErrorSources } from '@app/interface/error';
 import { ErrorRequestHandler } from 'express';
 import { JsonWebTokenError } from 'jsonwebtoken';
 import { ZodError } from 'zod';
+import config from '../config';
+import AppError from '../errors/AppError';
+import handleAuthenticationError from '../errors/handleAuthenticationError';
+import handleCastError from '../errors/handleCastError';
+import handleDuplicateError from '../errors/handleDupliCateError';
+import handleValidationError from '../errors/handleValidationError';
+import handleZodError from '../errors/handleZodError';
+import { TErrorSources } from '../interface/error';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const globalErrorHandler: ErrorRequestHandler = (err, _req, res, _next) => {

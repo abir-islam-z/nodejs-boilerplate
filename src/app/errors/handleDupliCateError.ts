@@ -2,10 +2,10 @@ import {
   MongoDuplicateKeyError,
   TErrorSources,
   TGenericErrorResponse,
-} from '@app/interface/error';
+} from '../interface/error';
 
 const handleDuplicateError = (
-  err: MongoDuplicateKeyError,
+  err: MongoDuplicateKeyError
 ): TGenericErrorResponse => {
   const path = Object.keys(err.keyPattern)[0];
   const message = `${err.keyValue[path]} is already taken`;
