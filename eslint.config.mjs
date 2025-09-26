@@ -1,25 +1,28 @@
-import pluginJs from '@eslint/js';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import typescriptPlugin from '@typescript-eslint/eslint-plugin';
+import typescriptParser from '@typescript-eslint/parser';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  { files: ['src/**/*.{js,mjs,cjs,ts}'] },
-  { languageOptions: { globals: globals.node } },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
   {
-    ignores: ['node_modules', 'dist'],
+    files: ['src/**/*.{js,ts}'],
+    languageOptions: {
+      parser: typescriptParser,
+      ecmaVersion: 2022,
+      sourceType: 'module',
+    },
+    plugins: {
+      '@typescript-eslint': typescriptPlugin,
+    },
     rules: {
       semi: 'error',
       'prefer-const': 'error',
-      'no-unused-vars': 'warn',
+      'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-this-alias': 'off',
       'no-unused-expressions': 'warn',
       'no-console': 'warn',
-      'no-undef': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
     },
+    ignores: ['node_modules', 'dist'],
   },
 ];
