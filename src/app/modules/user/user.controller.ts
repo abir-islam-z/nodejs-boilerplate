@@ -1,7 +1,8 @@
 import httpStatus from 'http-status';
-import catchAsync from '../../utils/catchAsync';
-import { sendResponse } from '../../utils/sendResponse';
-import { UserService } from './user.service';
+import catchAsync from '#app/utils/catchAsync';
+import { routeParam } from '#app/utils/routeParam';
+import { sendResponse } from '#app/utils/sendResponse';
+import { UserService } from './user.service.ts';
 
 const create = catchAsync(async (req, res) => {
   const user = await UserService.createUser(req.body);
@@ -24,7 +25,7 @@ const findAll = catchAsync(async (_req, res) => {
 });
 
 const findOne = catchAsync(async (req, res) => {
-  const user = await UserService.getUserById(req.params.id);
+  const user = await UserService.getUserById(routeParam(req.params.id));
   sendResponse(res, {
     success: true,
     message: 'User retrieved successfully',
@@ -34,7 +35,7 @@ const findOne = catchAsync(async (req, res) => {
 });
 
 const update = catchAsync(async (req, res) => {
-  const user = await UserService.updateUser(req.params.id, req.body);
+  const user = await UserService.updateUser(routeParam(req.params.id), req.body);
   sendResponse(res, {
     success: true,
     message: 'User updated successfully',
@@ -44,7 +45,7 @@ const update = catchAsync(async (req, res) => {
 });
 
 const remove = catchAsync(async (req, res) => {
-  await UserService.deleteUser(req.params.id);
+  await UserService.deleteUser(routeParam(req.params.id));
   sendResponse(res, {
     success: true,
     message: 'User deleted successfully',

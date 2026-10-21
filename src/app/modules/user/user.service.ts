@@ -1,6 +1,6 @@
-import { TRegisterUser } from '../auth/auth.interface';
-import { TUser } from './user.interface';
-import { UserModel } from './user.model';
+import type { TRegisterUser } from '#app/modules/auth/auth.interface';
+import type { TUser } from './user.interface.ts';
+import { UserModel } from './user.model.ts';
 
 const createUser = async (data: TRegisterUser) => {
   return await UserModel.create(data);

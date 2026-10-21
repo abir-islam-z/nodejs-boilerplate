@@ -1,5 +1,5 @@
-import { IOrder } from './order.interface';
-import { OrderModel } from './order.model';
+import type { IOrder } from './order.interface.ts';
+import { OrderModel } from './order.model.ts';
 
 const create = async (data: IOrder) => {
   return await OrderModel.create(data);

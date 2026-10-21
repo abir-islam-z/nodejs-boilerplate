@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { Model, Types } from 'mongoose';
+import type { Model, Types } from 'mongoose';
 
 export type TUserRole = 'admin' | 'customer' | 'provider';
 export interface TUser {

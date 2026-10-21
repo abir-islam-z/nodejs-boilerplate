@@ -1,5 +1,5 @@
-import jwt, { JwtPayload, SignOptions } from 'jsonwebtoken';
-import { TJwtPayload } from './auth.interface';
+import jwt, { type JwtPayload, type SignOptions } from 'jsonwebtoken';
+import type { TJwtPayload } from './auth.interface.ts';
 
 export const createToken = (payload: TJwtPayload) => {
   const signOptions: SignOptions = {

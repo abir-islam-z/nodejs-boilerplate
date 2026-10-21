@@ -1,10 +1,10 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express, { Application } from 'express';
+import express, { type Application } from 'express';
 import helmet from 'helmet';
-import globalErrorHandler from './app/middlewares/globalErrorHandler';
-import notFound from './app/middlewares/notFound';
-import router from './app/routes';
+import globalErrorHandler from '#app/middlewares/globalErrorHandler';
+import notFound from '#app/middlewares/notFound';
+import router from '#app/routes/index';
 
 const app: Application = express();
 

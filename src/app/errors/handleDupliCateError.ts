@@ -1,8 +1,8 @@
-import {
+import type {
   MongoDuplicateKeyError,
   TErrorSources,
   TGenericErrorResponse,
-} from '../interface/error';
+} from '#app/interface/error';
 
 const handleDuplicateError = (
   err: MongoDuplicateKeyError

@@ -1,4 +1,4 @@
-import { DecodedJWTPayload } from './jwtdecoded';
+import type { DecodedJWTPayload } from './jwtdecoded.ts';
 
 declare global {
   namespace Express {

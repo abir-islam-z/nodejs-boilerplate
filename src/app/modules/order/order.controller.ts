@@ -1,7 +1,8 @@
 import httpStatus from 'http-status';
-import catchAsync from '../../utils/catchAsync';
-import { sendResponse } from '../../utils/sendResponse';
-import { OrderService } from './order.service';
+import catchAsync from '#app/utils/catchAsync';
+import { routeParam } from '#app/utils/routeParam';
+import { sendResponse } from '#app/utils/sendResponse';
+import { OrderService } from './order.service.ts';
 
 const create = catchAsync(async (req, res) => {
   const result = await OrderService.create(req.body);
@@ -24,7 +25,7 @@ const findAll = catchAsync(async (_req, res) => {
 });
 
 const findOne = catchAsync(async (req, res) => {
-  const result = await OrderService.findOne(req.params.id);
+  const result = await OrderService.findOne(routeParam(req.params.id));
   sendResponse(res, {
     success: true,
     message: 'Order retrieved successfully',
@@ -34,7 +35,7 @@ const findOne = catchAsync(async (req, res) => {
 });
 
 const update = catchAsync(async (req, res) => {
-  const result = await OrderService.update(req.params.id, req.body);
+  const result = await OrderService.update(routeParam(req.params.id), req.body);
   sendResponse(res, {
     success: true,
     message: 'Order updated successfully',
@@ -44,7 +45,7 @@ const update = catchAsync(async (req, res) => {
 });
 
 const remove = catchAsync(async (req, res) => {
-  const result = await OrderService.remove(req.params.id);
+  const result = await OrderService.remove(routeParam(req.params.id));
   sendResponse(res, {
     success: true,
     message: 'Order deleted successfully',

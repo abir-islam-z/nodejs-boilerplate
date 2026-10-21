@@ -1,10 +1,10 @@
 import httpStatus from 'http-status';
-import config from '../../config';
-import AppError from '../../errors/AppError';
-import { UserModel } from '../user/user.model';
-import { TLoginUser } from './auth.interface';
-import { createToken, verifyToken } from './auth.utils';
-import { TRegister } from './auth.validation';
+import config from '#app/config/index';
+import AppError from '#app/errors/AppError';
+import { UserModel } from '#app/modules/user/user.model';
+import type { TLoginUser } from './auth.interface.ts';
+import { createToken, verifyToken } from './auth.utils.ts';
+import type { TRegister } from './auth.validation.ts';
 
 const registerUser = async (payload: TRegister) => {
   const user = await UserModel.create(payload);

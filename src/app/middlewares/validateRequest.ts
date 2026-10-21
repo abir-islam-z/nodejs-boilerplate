@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
-import { AnyZodObject } from 'zod';
-import catchAsync from '../utils/catchAsync';
+import type { NextFunction, Request, Response } from 'express';
+import type { AnyZodObject } from 'zod';
+import catchAsync from '#app/utils/catchAsync';
 
 type ValidatePart = 'body' | 'query' | 'cookies' | 'params';
 

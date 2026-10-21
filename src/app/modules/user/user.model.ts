@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import { model, Schema } from 'mongoose';
-import config from '../../config';
-import { USER_ROLES } from './user.constant';
-import { TUser, TUserModel } from './user.interface';
+import config from '#app/config/index';
+import { USER_ROLES } from './user.constant.ts';
+import type { TUser, TUserModel } from './user.interface.ts';
 
 const userSchema = new Schema<TUser, TUserModel>(
   {

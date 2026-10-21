@@ -1,5 +1,5 @@
-import { JsonWebTokenError } from 'jsonwebtoken';
-import { TErrorSources } from '../interface/error';
+import type { JsonWebTokenError } from 'jsonwebtoken';
+import type { TErrorSources } from '#app/interface/error';
 
 const handleAuthenticationError = (err: JsonWebTokenError) => {
   let statusCode = 401;

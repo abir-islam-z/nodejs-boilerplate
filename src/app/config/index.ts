@@ -1,6 +1,8 @@
-import dotenv from 'dotenv';
+import { existsSync } from 'node:fs';
 
-dotenv.config();
+if (existsSync('.env')) {
+  process.loadEnvFile('.env');
+}
 
 const config = {
   port: process.env.PORT || 1337,

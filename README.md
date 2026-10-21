@@ -1,13 +1,13 @@
 # 🚀 Minimal Express.js TypeScript Boilerplate
 
-A lightweight, production-ready Express.js boilerplate with TypeScript, MongoDB, and JWT authentication. **57% fewer dependencies** than typical boilerplates.
+A lightweight Express.js boilerplate with MongoDB and JWT authentication. TypeScript runs directly on Node.js 22.18 or newer. There is no compile step and no `ts-node`.
 
 ## ✨ Features
 
 - **JWT Authentication** with access & refresh tokens
 - **Role-based Authorization** (Admin, Customer, Provider)
 - **MongoDB Integration** with Mongoose
-- **TypeScript** with strict configuration
+- **TypeScript on Node.js**, with type stripping and a separate `tsc --noEmit` check
 - **Security Headers** with Helmet & CORS
 - **Input Validation** with Zod schemas
 - **Error Handling** with custom error classes
@@ -15,9 +15,11 @@ A lightweight, production-ready Express.js boilerplate with TypeScript, MongoDB,
 
 ## 📦 Dependencies
 
-**Runtime (10):** express, mongoose, bcrypt, jsonwebtoken, helmet, cors, cookie-parser, dotenv, http-status, zod
+**Runtime:** express, mongoose, bcrypt, jsonwebtoken, helmet, cors, cookie-parser, http-status, zod
 
-**Dev (11):** typescript, ts-node-dev, eslint, @typescript-eslint/_, @types/_
+**Dev:** typescript, eslint, @typescript-eslint, @types
+
+Node loads `.env` through `process.loadEnvFile`. Cross-folder imports use the `#app/*` alias (`#app/utils/catchAsync`), which `package.json` maps to `./src/app/*.ts`. Files in the same folder stay relative and keep a `.ts` extension. Type-only imports use `import type`.
 
 ## 🚀 Quick Start
 
@@ -47,8 +49,11 @@ A lightweight, production-ready Express.js boilerplate with TypeScript, MongoDB,
    ```
 
 3. **Start Development**
+
+   Requires Node.js 22.18 or newer.
+
    ```bash
-   npm run start:dev
+   npm run dev
    ```
 
 ## 📚 API Endpoints
@@ -84,9 +89,9 @@ PATCH /api/admin/users/:userId/block # Block user (Admin)
 ## 🛠️ Scripts
 
 ```bash
-npm run start:dev     # Development server
-npm run start:prod    # Production server
-npm run build         # Build TypeScript
+npm run dev           # node --watch src/server.ts
+npm run start         # node src/server.ts
+npm run typecheck     # tsc --noEmit
 npm run lint          # ESLint check
 npm run lint:fix      # Fix ESLint errors
 ```
